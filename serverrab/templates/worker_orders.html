@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Заказы работника{% endblock %}
+
+{% block content %}
+  <h2>Заказы сотрудника</h2>
+    <form method="get" action="{% url 'search_client' %}">
+        {% csrf_token %}
+        <label for="search_phone_number">Поиск клиента по телефону:</label>
+        <input type="text" name="search_phone_number" placeholder="Введите телефон клиента">
+        <button type="submit">Поиск</button>
+    </form>
+  {% if worker_orders %}
+    <ul class="order-list">
+      {% for order in worker_orders %}
+        <li class="order-item">
+          <strong>Клиент:</strong> {{ order.id_client }}<br>
+          <strong>ID заказа:</strong> {{ order.id_orders }}<br>
+          <strong>Дата заказа:</strong> {{ order.Date_order }}<br>
+          <strong>Цена:</strong> {{ order.price_time }}<br>
+          <strong>Бар:</strong> {{ order.id_bar }}<br>
+          <form method="post" action="{% url 'update_price' %}">
+            {% csrf_token %}
+            <input type="hidden" name="order_id" value="{{ order.id_orders }}">
+            <input type="text" name="new_price" placeholder="Введите новую цену">
+            <button type="submit">Обновить цену</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Нет доступных заказов.</p>
+  {% endif %}
+  <h2>Создать новый заказ</h2>
+  <form method="post" action="{% url 'worker_orders' %}" class="create-order-form">
+    {% csrf_token %}
+    <input type="text" name="Date_order" placeholder="Дата заказа (гггг-мм-дд)">
+    <input type="text" name="price_time" placeholder="Цена">
+    <input type="text" name="id_worker" placeholder="ID сотрудника">
+    <input type="text" name="id_client" placeholder="ID клиента">
+    <input type="text" name="id_Admin" placeholder="ID админа">
+    <input type="text" name="id_bar" placeholder="ID бара">
+    <button type="submit">Создать заказ</button>
+  </form>
+  <style>
+    .order-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .order-item {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .create-order-form {
+      max-width: 400px;
+      margin: 20px 0;
+    }
+  </style>
+{% endblock %}

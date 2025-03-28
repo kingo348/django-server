@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Результат поиска</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .not-found {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Результат поиска</h1>
+    </header>
+    {% if client %}
+        <h1>Клиент</h1>
+        <table>
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <td>{{ client.id_client }}</td>
+                </tr>
+                <tr>
+                    <th>Имя клиента</th>
+                    <td>{{ client.name }}</td>
+                </tr>
+                <tr>
+                    <th>Телефон</th>
+                    <td>{{ client.Phone_client }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h1>Заказы</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Дата</th>
+                    <th>Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id_orders }}</td>
+                        <td>{{ order.Date_order }}</td>
+                        <td>{{ order.price_time }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h1>Клиент не найден</h1>
+    {% endif %}
+
+</body>
+</html>

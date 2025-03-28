@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="login-container">
+    <h2>Вход для клиента</h2>
+    <form method="post" action="{% url 'client_login' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      {% if error_message %}
+        <span class="error-message">Пользователь с таким номером не найден</span>
+      {% endif %}
+      <button type="submit">Войти</button>
+    </form>
+  </div>
+  <style>
+    .login-container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .error-message {
+      color: red;
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+{% endblock %}

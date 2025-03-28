@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Заказы клиента{% endblock %}
+
+{% block content %}
+  <h2>Заказы клиента</h2>
+  {% if client_orders %}
+    <ul class="order-list">
+      {% for order in client_orders %}
+        <li class="order-item">
+          <strong>ID заказа:</strong> {{ order.id_orders }}<br>
+          <strong>Дата заказа:</strong> {{ order.Date_order }}<br>
+          <strong>Цена:</strong> {{ order.price_time }}<br>
+          <strong>Бар:</strong> {{ order.id_bar }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>У клиента нет заказов.</p>
+  {% endif %}
+  <style>
+    .order-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .order-item {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+{% endblock %}

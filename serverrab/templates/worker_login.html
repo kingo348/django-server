@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="login-container">
+    <h2>Вход для работника</h2>
+    <form method="post" action="{% url 'worker_login' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Войти</button>
+    </form>
+  </div>
+  <style>
+    .login-container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  </style>
+{% endblock %}
